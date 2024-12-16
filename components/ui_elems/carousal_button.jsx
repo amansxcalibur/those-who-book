@@ -1,21 +1,23 @@
+import { RED_BG } from "@/app/constants/colors"
+
 export default function CarousalButton(){
     return(
       <div className="overflow-hidden w-[670px]">
-        <button className="flex items-center animate-infinite-scroll-x">
+        <button className={`${RED_BG} flex items-center animate-infinite-scroll-x text-white text-[50px] my-[15px] -py-[10px]`}>
           {[...Array(10)].map((_, index) => (
             <p 
               key={index} 
-              className="px-4 whitespace-nowrap text-lg"
+              className="whitespace-nowrap px-4"
             >
-              Regista
+              *RESERVA
             </p>
           ))}
           {[...Array(10)].map((_, index) => (
             <p 
               key={`repeat-${index}`} 
-              className="px-4 whitespace-nowrap text-lg"
+              className="whitespace-nowrap px-4"
             >
-              Regista
+              *RESERVA
             </p>
           ))}
         </button>

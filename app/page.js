@@ -20,24 +20,24 @@ export default function Home() {
         <div className="shadow-2xl bg-white min-w-[730px] flex p-[30px]">
           <div className="flex-1">
             <EqualToSeperator/>
-            <div className="flex [&>*]:flex-1 flex-1 [&>*]:bg-blue-300">
-              <button className="hover:bg-black hover:text-white">Vallehermoso</button>
-              <button className="hover:bg-black hover:text-white">Novitiate</button>
-              <button className="hover:bg-black hover:text-white">Count</button>
-              <p>- Oh, it's We</p>
+            <div className="flex [&>*]:flex-1 flex-1 my-[20px] text-[22px]">
+              <button className="hover:bg-[#a82726] hover:text-white">VALLEHERMOSO</button>
+              <button className="hover:bg-[#a82726] hover:text-white">NOVITIATE</button>
+              <button className="hover:bg-[#a82726] hover:text-white">COUNT</button>
+              <p className="">- OH, IT'S WE</p>
             </div>
             <EqualToSeperator/>
-            <p className="text-[50px] flex justify-center">THOSE WHO BOOK</p>
+            <p className="text-[50px] flex justify-center my-[15px]">THOSE WHO BOOK</p>
             <EqualToSeperator/>
-            <div className="flex items-center flex-col">
-              <p>C/Vallehermoso 36, 28015, Madrid</p>
-              <p> 91 138 9995</p>
-              <p>Tuesday to Saturdays from 13:30h to 16h / 20:30h to 23h</p>
+            <div className="flex items-center flex-col my-[15px] text-[17px]">
+              <p className="underline">C/VALLEHERMOSO 36, 28015, MADRID</p>
+              <p className="underline">91 138 9995</p>
+              <p>TUESDAY TO SATRUDAY FROM 13:30H TO 16H / 20:30H TO 23H</p>
             </div>
             <EqualToSeperator/>
             <CarousalButton/>
             <EqualToSeperator/>
-            <div className="flex flex-col items-center max-w-[670px]">
+            <div className="flex flex-col items-center max-w-[670px] text-[16px] my-[20px] leading-5">
               <p className="text-center">Vallehermoso is the home of our parents, the first place we opened, ten years ago, in the Vallehermoso Market; it is our absolute reference. 
                 He is literally surrounded by the companions who have seen us grow, such as Javi and Anita (the fishers), or Higino (pollero) and Antonio (butcher). 
                 They serve us their product and we shape it.</p>
@@ -50,15 +50,20 @@ export default function Home() {
             <ReserveTicket/>
             <EqualToSeperator/>
             <div>
-              <p className="flex justify-center">A PROJECT BY</p>
-              <ul>
-                <li>Abhinav M</li>
-                <li>Aman V Shafeeq</li>
-                <li>Gautham M</li>
-                <li>Harikrishna TP</li>
-                <li>Hridesh MG</li>
-                <li>Joseph TM</li>
-              </ul>
+              <p className="flex justify-center text-[50px]">A PROJECT BY</p>
+              <div className="flex text-[20px]">
+                <ul className={`flex-[3] hover:[&>*]:bg-[#a82726] hover:[&>*]:text-white flex items-start flex-col`}>
+                  <li>Abhinav M</li>
+                  <li>Aman V Shafeeq</li>
+                  <li>Gautham M</li>
+                  <li>Harikrishna TP</li>
+                  <li>Hridesh MG</li>
+                  <li>Joseph TM</li>
+                </ul>
+                <ul className="flex-1 hover:[&>*]:bg-[#a82726] hover:[&>*]:text-white">
+                  <li>GitHub</li>
+                  </ul>
+              </div>
             </div>
           </div>
         </div>

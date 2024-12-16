@@ -26,26 +26,34 @@ body {
 }
 
 .react-calendar{
-  background-color: black;
+  color: #494949;
+  background-color: white;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
+.react-calendar__month-view__weekdays__weekday{
+  color: black;
+  display: flex;
+  justify-content: center
+}
 .react-calendar__navigation{
-  background-color: red;
+  color: black;
+  background-color: #d1d0d0;
   width: 100%;
   display: flex;
   flex: 1;
+  min-height: 40px;
 }
 .react-calendar__navigation__arrow{
   flex: 1;
 }
 .react-calendar__navigation__arrow:hover{
-  background-color: black;
+  background-color: white;
 }
 .react-calendar__tile{
-  min-height: 40px;
+  min-height: 50px;
 }
 .react-calendar__tile:hover{
-  background-color: cyan;
+  background-color: #ef4444;
 }
