@@ -54,6 +54,13 @@ body {
 .react-calendar__tile{
   min-height: 50px;
 }
-.react-calendar__tile:hover{
+.react-calendar__tile:enabled:hover{
   background-color: #ef4444;
+}
+.react-calendar__tile--now {
+  background: #a82726;
+  color: white;
+}
+.react-calendar__tile:disabled {
+  color: #a8a8a8;
 }

@@ -3,7 +3,7 @@ import CarousalButton from "@/components/ui_elems/carousal_button";
 import EqualToSeperator from "@/components/ui_elems/equal_to_seperator";
 import Link from "next/link";
 import Image from "next/image";
-import { RED_TEXT, RED_BG } from "./constants/colors";
+import { RED_TEXT, RED_BG } from "../constants/colors";
 
 export default function Home() {
   return (
@@ -59,10 +59,10 @@ export default function Home() {
                   <li className="flex"><Link href={'https://github.com/angrezichatterbox'} className="w-full h-full">Gautham M</Link></li>
                   <li className="flex"><Link href={'https://github.com/harikrishnatp'} className="w-full h-full">Harikrishna TP</Link></li>
                   <li className="flex"><Link href={'https://github.com/hrideshmg'} className="w-full h-full">Hridesh MG</Link></li>
-                  <li className="flex"><Link href={'https://github.com/mtk-jr'} className="w-full h-full">Joseph TM</Link></li>
+                  <li className="flex"><Link href={'github.com/'} className="w-full h-full">Joseph TM</Link></li>
                 </ul>
                 <ul className="flex-1 hover:[&>*]:bg-[#a82726] hover:[&>*]:text-white flex justify-start items-start">
-                  <li className="flex"><Link href={'https://github.com/amansxcalibur/those-who-book'} className="h-full w-full">GitHub</Link></li>
+                  <li>GitHub</li>
                   </ul>
               </div>
             </div>
