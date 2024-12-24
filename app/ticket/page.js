@@ -4,6 +4,7 @@ import EqualToSeperator from "@/components/ui_elems/equal_to_seperator";
 import Link from "next/link";
 import Image from "next/image";
 import { RED_TEXT, RED_BG } from "../constants/colors";
+import TestApi from "@/components/test-api/test_api";
 
 export default function Home() {
   return (
@@ -48,7 +49,7 @@ export default function Home() {
                 It is a small place, which occupies part of the corridors of the market, in which the music and screams from side to the bar are mixed with the commands and the transfer of waiters, cooks and customers.</p>
             </div>
             <EqualToSeperator/>
-            <ReserveTicket/>
+            <TestApi/>
             <EqualToSeperator/>
             <div>
               <p className="flex justify-center text-[50px]">A PROJECT BY</p>

@@ -5,17 +5,66 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react"
 import Calendar from "react-calendar";
 import EqualToSeperator from "../ui_elems/equal_to_seperator";
+import { endpoint } from "@/app/constants/api";
+
+async function getAsyncApi(start) {
+    try {
+        let response;
+        if (start!=undefined && start!=''){
+            console.log("IN HERE")
+            response = await fetch((endpoint + '/bill?' + new URLSearchParams({
+                source: start
+            }).toString()));
+        }else{
+            response = await fetch((endpoint + '/bill'));
+        }
+        if (!response.ok) {
+            throw new Error('Failed to fetch data');
+        }
+        const data = await response.json();
+        // console.log(endpoint + '/bill?' + new URLSearchParams({
+        //     destination: "hello"
+        // }).toString());
+        return data;
+    } catch (error) {
+        console.error('Error fetching API:', error);
+        return null;
+    }
+}
 
 export default function ReserveTicket(){
     const router = useRouter();
     const [value, setValue] = useState(new Date());
-    const [options, setOptions] = useState({
-        'KYJ': 'Kayamkulam',
-        'ERS': 'Ernakulam South',
-        'ERT': 'Ernakulam North'
-    })
-    const [schedule, setSchedule] = useState({});
+    const [options, setOptions] = useState({start:[], destination:[]})
+    const [schedule, setSchedule] = useState({start:'', destination:''});
     const [bill, setBill] = useState([])
+
+    useEffect(()=>{
+        async function getAvailableDestination() {
+            const data = await getAsyncApi(schedule.start);
+            console.log("triggering")
+            setOptions(prevState=>({
+                ...prevState,
+                destination:data
+            }));
+        }
+        if (schedule.start!=null && schedule.start!=undefined && schedule.start!=''){
+            console.log("this is the start before the destination")
+            getAvailableDestination();
+        }
+    },[schedule.start])
+
+    useEffect(()=>{
+        async function getAvailableStart() {
+            const data = await getAsyncApi();
+            console.log("triggering")
+            setOptions(prevState=>({
+                ...prevState,
+                start:data
+            }));
+        }
+        getAvailableStart();
+    },[])
 
     const handleChange=(e)=>{
         const {id, value} = e.target;
@@ -45,6 +94,12 @@ export default function ReserveTicket(){
     useEffect(()=>{
         console.log(schedule);
     },[schedule])
+    useEffect(()=>{
+        console.log("here are the options start\n",options)
+    },[options.start])
+    useEffect(()=>{
+        console.log("here are the options destination\n",options)
+    },[options.destination])
     return(
         <>
         <div className={`${RED_BG} text-white my-[20px] py-[30px]`}>
@@ -56,19 +111,19 @@ export default function ReserveTicket(){
                 <div className="w-full flex px-[30px]">
                     <div className="flex-1 flex items-start flex-col">
                         <label htmlFor="start">Start</label>
-                        <select name="start" id="start" onChange={handleChange} className="min-h-[50px] min-w-[270px] text-black px-[10px]">
+                        <select name="start" id="start" onChange={handleChange} defaultValue={schedule.start} className="min-h-[50px] min-w-[270px] text-black px-[10px]">
                             <option value="none" defaultValue={'none'} disabled hidden>Select Start</option>
-                            {Object.keys(options).map((key, index)=>(
-                                <option value={key} key={key}>{options[key]}</option>
+                            {options.start?.map((value, key)=>(
+                                <option value={value} key={key}>{value}</option>
                             ))}
                         </select>
                     </div>
                     <div className="flex-1 flex items-end flex-col">
                         <label htmlFor="destination" className="">Destination</label>
-                        <select name="destination" id="destination" onChange={handleChange} className="min-h-[50px] min-w-[270px] text-black px-[10px]">
+                        <select name="destination" id="destination" onChange={handleChange} defaultValue={schedule.destination} className="min-h-[50px] min-w-[270px] text-black px-[10px]">
                             <option value="none" defaultValue={'none'} disabled hidden>Select Destination</option>
-                            {Object.keys(options).map((key, index)=>(
-                                <option value={key} key={key}>{options[key]}</option>
+                            {options.destination?.map((value, key)=>(
+                                <option value={value} key={key}>{value}</option>
                             ))}
                         </select>
                     </div>
@@ -80,7 +135,7 @@ export default function ReserveTicket(){
         </div>
         <div id="bill" className={`${RED_TEXT} my-[20px] ${bill.length==0?"hidden":""}`}>
             <EqualToSeperator/>
-            <p className="flex justify-center text-[50px] mb-[20px]">BILL</p>
+            <p className="flex justify-center text-[50px] mb-[10px]">BILL</p>
             <EqualToSeperator/>
             <div className="flex [&>*]:flex-1 flex-1 my-[20px] text-[22px]">
               <button className="hover:bg-[#a82726] hover:text-white">VALLEHERMOSO</button>
