@@ -6,10 +6,11 @@ export async function GET(request) {
         const { searchParams } = new URL(request.url);
         const source = searchParams.get("source");
         const destination = searchParams.get("destination");
+        const date = searchParams.get("date");
 
-        console.log("Source:", source, "Destination:", destination);
+        console.log("Source:", source, "Destination:", destination, "Date:", date);
 
-        if (!source || !destination) {
+        if (!source || !destination ||!date) {
             return NextResponse.json([]);
         }
 
@@ -17,7 +18,7 @@ export async function GET(request) {
             SELECT * FROM schedule 
             INNER JOIN bus ON bus.bus_id = schedule.bus_id
             WHERE route_id = (
-                SELECT route_id FROM route WHERE source = '${source}' AND destination = '${destination}'
+                SELECT route_id FROM route WHERE source = '${source}' AND destination = '${destination}' AND date = '${date}'
             )
         `;
         const result = await client.query(query);

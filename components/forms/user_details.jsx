@@ -2,6 +2,8 @@ import { useState } from "react";
 import Ticket from "../tables/ticket";
 import { RED_BG } from "@/app/constants/colors";
 import { endpoint } from "@/app/constants/api";
+import EqualToSeperator from "../ui_elems/equal_to_seperator";
+import Arrow from "../svg/upward-arror";
 
 async function postAsyncDetails(userDetails, selected) {
     try {
@@ -27,7 +29,7 @@ async function postAsyncDetails(userDetails, selected) {
     }
 }
 
-export default function UserDetails({ bill, selected }) {
+export default function UserDetails({ bill, selected, setOpenInput, setSelected }) {
     const [userDetails, setUserDetails] = useState({
         id: "",
         name: "",
@@ -54,12 +56,19 @@ export default function UserDetails({ bill, selected }) {
 
     return (
         <>
-            <form onSubmit={handleSubmit}>
+        {ticket?
+                <Ticket bill={bill} handleSubmit={handleSubmit} ticket={ticket} />
+                :
+                <>
+            <form onSubmit={handleSubmit} className="h-full flex flex-col">
                 <div className="flex flex-col">
+                    <button onClick={()=>{setSelected(); setOpenInput(false)}} className={`absolute mt-1 [&>*]:size-16 hover:[&>*]:text-white hover:[&>*]:${RED_BG} [&>*]:rounded-full [&>*]:p-2 -rotate-[135deg]`}><Arrow/></button>
                     <p className="text-center text-[50px]">USER DETAILS</p>
-                    <div className="flex flex-col gap-2 w-full">
+                    <EqualToSeperator/>
+                    <div className="flex flex-col gap-2 w-full mt-5">
                         <div className="flex w-full px-[30px]">
-                        <div className="flex-1 flex justify-start">
+                        <div className="flex-1 flex flex-col items-start">
+                            <label htmlFor="id">ID</label>
                                 <input
                                     required
                                     type="number"
@@ -70,7 +79,8 @@ export default function UserDetails({ bill, selected }) {
                                     className="min-h-[50px] min-w-[270px] text-black px-[10px] border"
                                 />
                             </div>
-                            <div className="flex-1 flex justify-end">
+                            <div className="flex-1 flex flex-col items-end">
+                                <label htmlFor="name">Name</label>
                                 <input
                                     required
                                     type="text"
@@ -83,7 +93,8 @@ export default function UserDetails({ bill, selected }) {
                             </div>
                         </div>
                         <div className="flex w-full px-[30px]">
-                            <div className="flex flex-1 justify-start">
+                            <div className="flex flex-1 flex-col items-start">
+                                <label htmlFor="age">Age</label>
                                 <input
                                     required
                                     type="number"
@@ -94,7 +105,8 @@ export default function UserDetails({ bill, selected }) {
                                     className="min-h-[50px] min-w-[270px] text-black px-[10px] border"
                                 />
                             </div>
-                            <div className="flex flex-1 justify-end">
+                            <div className="flex flex-1 flex-col items-end">
+                                <label htmlFor="Contact">Contact</label>
                                 <input
                                     required
                                     type="number"
@@ -107,12 +119,27 @@ export default function UserDetails({ bill, selected }) {
                             </div>
                         </div>
                     </div>
-                    <button type="submit" className={`${RED_BG} text-white mt-4 min-h-[50px] m-[30px]`}>
-                        Display Bill
+                    <button type="submit" className={`${RED_BG} text-white mt-6 min-h-[50px] m-[30px]`}>
+                        Book-Ticket 💀
                     </button>
                 </div>
+                <div className="flex flex-col items-center max-w-[670px] text-[16px] my-[20px] leading-5 mt-[60px]">
+                    <p className="text-center">Vallehermoso is the home of our parents, the first place we opened, ten years ago, in the Vallehermoso Market; it is our absolute reference. 
+                        He is literally surrounded by the companions who have seen us grow, such as Javi and Anita (the fishers), or Higino (pollero) and Antonio (butcher). 
+                        They serve us their product and we shape it.</p>
+                    <p className="text-center">Vallehermoso is a Spanish tasca in a lifelong Madrid market. In Vallehermoso we serve Asian (semi)-traditional food, prepared with open cuisine, with a very 
+                        fresh product bought in the same market and at affordable prices compared to the stars that surround us outside and within the market.</p>
+                    <p className="text-center">Here you can eat our most iconic meals, which we have them, such as Korean ribs, the red gambones curry, the butifarra dumplings and the eggplant of Sichuan. 
+                        It is a small place, which occupies part of the corridors of the market, in which the music and screams from side to the bar are mixed with the commands and the transfer of waiters, cooks and customers.</p>
+                </div>
             </form>
-            <Ticket bill={bill} handleSubmit={handleSubmit} ticket={ticket} />
+            <div className="fixed bottom-5 w-[670px] text-center">
+                <EqualToSeperator/>
+                <p className="text-[30px] flex justify-center font-bold">THOSE-WHO-BOOK&trade;</p>
+                <EqualToSeperator/>
+            </div>
+            </>
+            }
         </>
     );
 }

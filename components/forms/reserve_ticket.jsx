@@ -64,9 +64,9 @@ export default function ReserveTicket(){
     const router = useRouter();
     const [selected, setSelected] = useState()
     const [options, setOptions] = useState({start:[], destination:[]})
-    const [input, setInput] = useState({start:'', destination:'', date: new Date()});
+    const [input, setInput] = useState({start:'', destination:'', date: new Date().toLocaleDateString("en-IN")});
     const [bill, setBill] = useState([])
-    const [schedules, setSchedules] = useState([]);
+    const [schedules, setSchedules] = useState();
 
     useEffect(()=>{
         async function getAvailableDestination() {
@@ -129,7 +129,7 @@ export default function ReserveTicket(){
             return;
         }
         console.log("Submitted schedule:", input);
-        getSchedules(); // Fetch schedules before redirecting or taking further action
+        getSchedules();
     };
     
 
@@ -175,8 +175,11 @@ export default function ReserveTicket(){
                 </div>
             </form>
         </div>
-        <Schedules schedules={schedules} selected={selected} setSelected={setSelected}/>
-        <UserDetails bill={bill} selected={selected}/>
+        {schedules?
+            <Schedules schedules={schedules} setSchedules={setSchedules} selected={selected} setSelected={setSelected} bill={bill} />
+            :
+            <></>
+        }
         </>
     )
 }

@@ -57,7 +57,7 @@ body {
 .react-calendar__tile:enabled:hover{
   background-color: #ef4444;
 }
-.react-calendar__tile--now {
+.react-calendar__tile--active {
   background: #a82726;
   color: white;
 }
