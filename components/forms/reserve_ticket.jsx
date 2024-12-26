@@ -6,7 +6,7 @@ import { useEffect, useState } from "react"
 import Calendar from "react-calendar";
 import EqualToSeperator from "../ui_elems/equal_to_seperator";
 import { endpoint } from "@/app/constants/api";
-import Bill from "../tables/bill";
+import Ticket from "../tables/ticket";
 import Schedules from "../tables/schedules";
 import UserDetails from "./user_details";
 
@@ -38,11 +38,12 @@ async function getAsyncApi(start) {
 async function getAsyncSchedules(input) {
     try {
         let response;
-        if (input.start!=undefined && input.start!='' && input.destination!=undefined && input.destination!=''){
+        if (input.start!=undefined && input.start!='' && input.destination!=undefined && input.destination!='' && input.date!=undefined && input.date!=''){
             console.log("IN HERE")
             response = await fetch((endpoint + '/available?' + new URLSearchParams({
                 source: input.start,
-                destination: input.destination
+                destination: input.destination,
+                date: input.date
             }).toString()));
         }
         if (!response.ok) {

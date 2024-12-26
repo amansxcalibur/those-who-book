@@ -16,7 +16,7 @@ export default function Schedules({ schedules, selected, setSelected }) {
     return (
         <div className="">
             <p className="text-[50px] text-center">AVAILABLE BUSES</p>
-            <table className="table-auto w-full">
+            <table className="table-auto w-full mb-2">
                 <thead>
                     <tr>
                         <th></th>
@@ -29,13 +29,13 @@ export default function Schedules({ schedules, selected, setSelected }) {
                 </thead>
                 <tbody>
                     {schedules.map((item, index) => (
-                        <tr onClick={()=>{setSelected(item.schedule_id)}} key={index} className={`hover:${RED_BG} hover:text-white ${selected==item.schedule_id? `${RED_BG} text-white`:""}`}>
-                            <td className="text-center">{index+1}</td>
-                            <td className="text-center">{item.bus_number}</td>
-                            <td className="text-center">{item.bus_type}</td>
-                            <td className="text-center">{item.departure_time}</td>
-                            <td className="text-center">{item.arrival_time}</td>
-                            <td className="text-center">{item.price}</td>
+                        <tr onClick={()=>{setSelected(item.schedule_id)}} key={index} className={`border-b-2 hover:${RED_BG} hover:text-white ${selected==item.schedule_id? `${RED_BG} text-white`:""}`}>
+                            <td className="text-center py-3">{index+1}</td>
+                            <td className="text-center py-3">{item.bus_number}</td>
+                            <td className="text-center py-3">{item.bus_type}</td>
+                            <td className="text-center py-3">{item.departure_time}</td>
+                            <td className="text-center py-3">{item.arrival_time}</td>
+                            <td className="text-center py-3">&#x20b9;{item.price}</td>
                         </tr>
                     ))}
                 </tbody>

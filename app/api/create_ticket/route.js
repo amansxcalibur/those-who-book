@@ -37,7 +37,7 @@ export async function GET(request) {
       }
 
       const insertResult = await client.query(
-        `INSERT INTO ticket (passenger_id, schedule_id, booking_type) VALUES ($1, $2, 'online') RETURNING ticket_id`,
+        `INSERT INTO ticket (passenger_id, schedule_id, booking_type) VALUES ($1, $2, 'online') RETURNING ticket_id, seat_number`,
         [passenger_id, schedule_id],
       );
 
@@ -55,15 +55,18 @@ export async function GET(request) {
       // Fetch additional details from passenger and schedule
       const detailsResult = await client.query(
         `SELECT
-            p.passenger_id, 
+            p.passenger_id,
+            b.bus_number,
             r.source, 
             r.destination, 
             s.arrival_time, 
             s.departure_time, 
-            s.price 
+            s.price,
+            s.date
         FROM schedule s
         JOIN route r ON s.route_id = r.route_id
         JOIN passenger p ON p.passenger_id = $1
+        JOIN bus b ON s.bus_id = b.bus_id
         WHERE s.schedule_id = $2`,
         [passenger_id, schedule_id]
       );
@@ -85,6 +88,8 @@ export async function GET(request) {
             seat_number,
             price: details.price,
             schedule: {
+              date: details.date,
+              bus_number: details.bus_number,
               source: details.source,
               destination: details.destination,
               arrival_time: details.arrival_time,

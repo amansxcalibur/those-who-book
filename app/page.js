@@ -27,7 +27,7 @@ export default function Home() {
               <p className="">- OH, IT'S WE</p>
             </div>
             <EqualToSeperator/>
-            <p className="text-[50px] flex justify-center my-[15px]">THOSE WHO BOOK</p>
+            <p className="text-[50px] flex justify-center my-[15px]">THOSE-WHO-BOOK💀</p>
             <EqualToSeperator/>
             <div className="flex items-center flex-col my-[15px] text-[17px]">
               <p className="underline">C/VALLEHERMOSO 36, 28015, MADRID</p>

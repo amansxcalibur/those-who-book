@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Bill from "../tables/bill";
+import Ticket from "../tables/ticket";
 import { RED_BG } from "@/app/constants/colors";
 import { endpoint } from "@/app/constants/api";
 
@@ -34,6 +34,7 @@ export default function UserDetails({ bill, selected }) {
         age: "",
         contact: ""
     });
+    const [ticket, setTicket] = useState();
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -45,9 +46,10 @@ export default function UserDetails({ bill, selected }) {
 
     async function handleSubmit(e) {
         e.preventDefault();
-        const ticket=await postAsyncDetails(userDetails, selected);
+        const ticketObj=await postAsyncDetails(userDetails, selected);
         console.log("Submitted User Details:", userDetails);
-        console.log("Ticket", ticket);
+        console.log("Ticket", ticketObj);
+        setTicket(ticketObj.ticket)
     };
 
     return (
@@ -110,7 +112,7 @@ export default function UserDetails({ bill, selected }) {
                     </button>
                 </div>
             </form>
-            <Bill bill={bill} handleSubmit={handleSubmit} />
+            <Ticket bill={bill} handleSubmit={handleSubmit} ticket={ticket} />
         </>
     );
 }
