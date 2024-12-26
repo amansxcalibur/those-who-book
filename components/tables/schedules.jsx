@@ -1,11 +1,10 @@
 import { RED_BG } from "@/app/constants/colors";
 import { useState, useEffect } from "react";
 
-export default function Schedules({ schedules }) {
+export default function Schedules({ schedules, selected, setSelected }) {
     // if (!schedules || schedules.length === 0) {
     //     return <p>No schedules available.</p>;
     // }
-    const [selected, setSelected] = useState()
     useEffect(()=>{
         console.log(schedules, "here are the schedules")
     },[schedules])
@@ -16,6 +15,7 @@ export default function Schedules({ schedules }) {
 
     return (
         <div className="">
+            <p className="text-[50px] text-center">AVAILABLE BUSES</p>
             <table className="table-auto w-full">
                 <thead>
                     <tr>
@@ -40,7 +40,7 @@ export default function Schedules({ schedules }) {
                     ))}
                 </tbody>
             </table>
-            <button className={`${RED_BG} text-white`}>Choose schedule</button>
+            <button className={`${RED_BG} text-white min-h-[50px] p-3`}>Choose schedule</button>
         </div>
     );
 }

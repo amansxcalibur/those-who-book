@@ -8,14 +8,13 @@ import { RED_TEXT, RED_BG } from "./constants/colors";
 export default function Home() {
   return (
     <div className={`${RED_TEXT} min-h-screen flex`}>
-      <div className="fixed top-0 left-0 w-full h-full -z-10 grid grid-cols-9 flex-1 blur-sm bg-white">
-        {[1,2,3,4,5,6,7,8,9].map((key, index)=>(
-          <div className="grid grid-rows-5" key={index}>
-            {[1,2,3,4,5].map((key, index)=>(
-              <div className="border border-solid border-gray-600" key={index}></div>
-            ))}
-          </div>
-        ))}
+      <div className="fixed top-0 left-0 w-full h-full -z-10 flex-1 blur-sm bg-white">
+        <Image
+              src="/bg.png"
+              width={500} 
+              height={500} 
+              alt="Competition" className="bg-black min-h-[100vh] min-w-[100vw] flex-1"
+        />
       </div>
       <div className="w-full h-full flex justify-center overflow-y-scroll">
         <div className="shadow-2xl bg-white min-w-[730px] flex p-[30px]">

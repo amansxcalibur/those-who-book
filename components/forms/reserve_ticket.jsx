@@ -8,6 +8,7 @@ import EqualToSeperator from "../ui_elems/equal_to_seperator";
 import { endpoint } from "@/app/constants/api";
 import Bill from "../tables/bill";
 import Schedules from "../tables/schedules";
+import UserDetails from "./user_details";
 
 async function getAsyncApi(start) {
     try {
@@ -60,7 +61,7 @@ async function getAsyncSchedules(input) {
 
 export default function ReserveTicket(){
     const router = useRouter();
-    const [value, setValue] = useState(new Date());
+    const [selected, setSelected] = useState()
     const [options, setOptions] = useState({start:[], destination:[]})
     const [input, setInput] = useState({start:'', destination:'', date: new Date()});
     const [bill, setBill] = useState([])
@@ -173,8 +174,8 @@ export default function ReserveTicket(){
                 </div>
             </form>
         </div>
-        <Schedules schedules={schedules}/>
-        <Bill bill={bill} handleSubmit={handleSubmit}/>
+        <Schedules schedules={schedules} selected={selected} setSelected={setSelected}/>
+        <UserDetails bill={bill} selected={selected}/>
         </>
     )
 }
