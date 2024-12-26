@@ -36,18 +36,63 @@ export async function GET(request) {
         );
       }
 
-      await client.query(
-        `INSERT INTO ticket (passenger_id, schedule_id, booking_type) VALUES ($1, $2, 'online')`,
+      const insertResult = await client.query(
+        `INSERT INTO ticket (passenger_id, schedule_id, booking_type) VALUES ($1, $2, 'online') RETURNING ticket_id`,
         [passenger_id, schedule_id],
       );
 
-      console.log();
+      const ticket = insertResult.rows[0];
+      if (!ticket) {
+        return NextResponse.json(
+          { message: "Ticket creation failed!" },
+          { status: 500 }
+        );
+      }
+
+      const ticket_id = ticket.ticket_id;
+      const seat_number = ticket.seat_number;
+
+      // Fetch additional details from passenger and schedule
+      const detailsResult = await client.query(
+        `SELECT
+            p.passenger_id, 
+            r.source, 
+            r.destination, 
+            s.arrival_time, 
+            s.departure_time, 
+            s.price 
+        FROM schedule s
+        JOIN route r ON s.route_id = r.route_id
+        JOIN passenger p ON p.passenger_id = $1
+        WHERE s.schedule_id = $2`,
+        [passenger_id, schedule_id]
+      );
+
+      const details = detailsResult.rows[0];
+      if (!details) {
+        return NextResponse.json(
+          { message: "Unable to fetch schedule or passenger details!" },
+          { status: 500 }
+        );
+      }
 
       return NextResponse.json(
         {
-          message: `Successfully created ticket for passenger id: ${passenger_id} with schedule id: ${schedule_id}`,
+          message: `Successfully created ticket.`,
+          ticket: {
+            ticket_id,
+            passenger_id: details.passenger_id,
+            seat_number,
+            price: details.price,
+            schedule: {
+              source: details.source,
+              destination: details.destination,
+              arrival_time: details.arrival_time,
+              departure_time: details.departure_time,
+            },
+          },
         },
-        { status: 200 },
+        { status: 200 }
       );
     }
   } catch (error) {

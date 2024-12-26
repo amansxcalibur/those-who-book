@@ -3,7 +3,7 @@ import EqualToSeperator from "../ui_elems/equal_to_seperator";
 
 export default function Bill({bill, handleSubmit}){
     return(
-        <div id="bill" className={`${RED_TEXT} my-[20px] ${bill.length==0?"hidden":""}`}>
+        <div id="bill" className={`${RED_TEXT} my-[20px] ${bill.length==1?"hidden":""}`}>
             <EqualToSeperator/>
             <p className="flex justify-center text-[50px] mb-[10px]">BILL</p>Available
             <EqualToSeperator/>
