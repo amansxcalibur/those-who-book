@@ -81,6 +81,10 @@ export default function ReserveTicket(){
             console.log("this is the start before the destination")
             getAvailableDestination();
         }
+        setInput(prevState=>({
+            ...prevState,
+            destination:''
+        }))
     },[input.start])
 
     useEffect(()=>{
@@ -153,19 +157,39 @@ export default function ReserveTicket(){
                 <div className="w-full flex px-[30px]">
                     <div className="flex-1 flex items-start flex-col">
                         <label htmlFor="start">Start</label>
-                        <select name="start" id="start" onChange={handleChange} defaultValue={input.start} className="min-h-[50px] min-w-[270px] text-black px-[10px]">
-                            <option value="none" defaultValue={'none'} disabled hidden>Select Start</option>
-                            {options.start?.map((value, key)=>(
-                                <option value={value} key={key}>{value}</option>
+                        <select
+                            name="start"
+                            id="start"
+                            onChange={handleChange}
+                            value={input.start || ""}
+                            className="min-h-[50px] min-w-[270px] text-black px-[10px]"
+                            >
+                            <option value="" disabled hidden>
+                                Select Start
+                            </option>
+                            {options.start?.map((value, key) => (
+                                <option value={value} key={key}>
+                                {value}
+                                </option>
                             ))}
                         </select>
                     </div>
                     <div className="flex-1 flex items-end flex-col">
                         <label htmlFor="destination" className="">Destination</label>
-                        <select name="destination" id="destination" onChange={handleChange} defaultValue={input.destination} className="min-h-[50px] min-w-[270px] text-black px-[10px]">
-                            <option value="none" defaultValue={'none'} disabled hidden>Select Destination</option>
-                            {options.destination?.map((value, key)=>(
-                                <option value={value} key={key}>{value}</option>
+                        <select
+                            name="destination"
+                            id="destination"
+                            onChange={handleChange}
+                            value={input.destination || ""}
+                            className="min-h-[50px] min-w-[270px] text-black px-[10px]"
+                            >
+                            <option value="" disabled hidden>
+                                Select Destination
+                            </option>
+                            {options.destination?.map((value, key) => (
+                                <option value={value} key={key}>
+                                {value}
+                                </option>
                             ))}
                         </select>
                     </div>
